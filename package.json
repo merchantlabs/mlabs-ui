@@ -1,7 +1,7 @@
 {
-  "name": "mlabs-ui",
+  "name": "@mlabs.io/ui",
   "version": "1.0.0",
-  "description": "mlabs-ui React component",
+  "description": "Merchant Labs React component library.",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
