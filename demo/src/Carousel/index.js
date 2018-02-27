@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Carousel, Dot, Button } from '../../../src/Carousel'
+import { Carousel, Dot, Button } from '../../../src'
 import Slide from './Slide'
 
 const slides = [

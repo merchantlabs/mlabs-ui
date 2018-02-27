@@ -21,6 +21,6 @@ export const Button = styled.div`
 
   &:hover {
     cursor: pointer;
-    background-color: ${props => props.theme.accentColor1};
+    background-color: #40DDDF;
   }
 `

@@ -42,7 +42,6 @@ export default class Slider extends Component {
   onMouseLeave = () => this.setState({ auto: true })
 
   _moveLeft = () => {
-    // const { activeIndex, infiniteIndex } = this.state - ** Was throwing warning **
     const { infiniteIndex } = this.state
     const { slides } = this.props
     this.setState({
@@ -52,7 +51,6 @@ export default class Slider extends Component {
   }
 
   _moveRight = () => {
-    // const { activeIndex, infiniteIndex } = this.state - ** Was throwing warning **
     const { infiniteIndex } = this.state
     const { slides } = this.props
     this.setState({
@@ -84,7 +82,6 @@ export default class Slider extends Component {
     const {
       slides,
       interval,
-      // slideRenderer, - ** Was throwing warning **
       dotComponent: Dot,
       buttonComponent: Button
     } = this.props
