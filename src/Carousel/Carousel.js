@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import Visibility from 'visibilityjs'
 import Media from 'react-media'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay, virtualize } from 'react-swipeable-views-utils'
@@ -26,7 +27,18 @@ export default class Slider extends Component {
   state = {
     auto: true,
     activeIndex: 0,
-    infiniteIndex: 0
+    infiniteIndex: 0,
+    pageVisibility: 'visible'
+  }
+
+  componentDidMount() {
+    this.changeEventId = Visibility.change((e, pageVisibility) => {
+       this.setState({ pageVisibility })
+    })
+  }
+
+  componentWillUnmount() {
+    Visibility.unbind(this.changeEventId)
   }
 
   onChangeIndex = (index, indexLatest, meta) => {
@@ -78,7 +90,7 @@ export default class Slider extends Component {
   }
 
   render() {
-    const { auto, activeIndex, infiniteIndex } = this.state
+    const { auto, activeIndex, infiniteIndex, pageVisibility } = this.state
     const {
       slides,
       interval,
@@ -96,7 +108,7 @@ export default class Slider extends Component {
                 onMouseLeave={this.onMouseLeave}
                 onChangeIndex={this.onChangeIndex}
                 index={infiniteIndex}
-                autoplay={auto && slides.length > 1}
+                autoplay={auto && slides.length > 1 && pageVisibility === 'visible' }
                 interval={interval}
                 springConfig={{
                   duration: `${matches ? 0.35 : 1.5}s`,

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Carousel, Dot, Button } from '../../../src'
+import { Carousel } from '../../../src'
 import Slide from './Slide'
 
 const slides = [
@@ -28,8 +28,8 @@ export default () => (
   <Carousel
     slides={slides}
     interval={8000}
-    buttonComponent={Button}
-    dotComponent={Dot}
+    buttonComponent={Carousel.Button}
+    dotComponent={Carousel.Dot}
     slideRenderer={slideProps => <Slide {...slideProps} />}
   />
 )
