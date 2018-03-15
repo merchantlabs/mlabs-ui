@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Visibility from 'visibilityjs'
 import Media from 'react-media'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay, virtualize } from 'react-swipeable-views-utils'
@@ -31,14 +30,22 @@ export default class Slider extends Component {
     pageVisibility: 'visible'
   }
 
-  componentDidMount() {
-    this.changeEventId = Visibility.change((e, pageVisibility) => {
-       this.setState({ pageVisibility })
+  _onPageVisibilityChange = () => {
+    this.setState({
+      pageVisibility: document.visibilityState
     })
   }
 
+  componentDidMount() {
+    if(typeof window !== 'undefined') {
+      document.addEventListener('visibilitychange', this._onPageVisibilityChange)
+    }
+  }
+
   componentWillUnmount() {
-    Visibility.unbind(this.changeEventId)
+    if(typeof window !== 'undefined') {
+      document.removeEventListener('visibilitychange', this._onPageVisibilityChange)
+    }
   }
 
   onChangeIndex = (index, indexLatest, meta) => {
