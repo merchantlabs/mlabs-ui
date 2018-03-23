@@ -1,1 +1,1 @@
-export { ResponsiveCarousel, Carousel, Dot, Button } from './Carousel'
+export { ResponsiveCarousel, Carousel } from './Carousel'
