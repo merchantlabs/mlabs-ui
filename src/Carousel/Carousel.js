@@ -16,11 +16,15 @@ export default class Slider extends Component {
     buttonComponent: PropTypes.func,
     interval: PropTypes.number,
     className: PropTypes.string,
-    autoPlay: PropTypes.string
+    autoPlay: PropTypes.string,
+    dotOffset: PropTypes.number,
+    buttonOffset: PropTypes.number
   }
 
   static defaultProps = {
-    interval: 5000
+    interval: 5000,
+    dotOffset: 0,
+    buttonOffset: 0
   }
 
   state = {
@@ -102,7 +106,9 @@ export default class Slider extends Component {
       slides,
       interval,
       dotComponent: Dot,
-      buttonComponent: Button
+      buttonComponent: Button,
+      dotOffset,
+      buttonOffset
     } = this.props
 
     return (
@@ -128,14 +134,14 @@ export default class Slider extends Component {
             {!matches &&
               Button &&
               slides.length !== 1 && (
-                <ButtonContainer>
+                <ButtonContainer offset={buttonOffset}>
                   <Button onClick={this._moveLeft} left />
                   <Button onClick={this._moveRight} right />
                 </ButtonContainer>
               )}
             {Dot &&
               slides.length > 1 && (
-                <DotsContainer>
+                <DotsContainer offset={dotOffset}>
                   {slides.map((slide, i) => {
                     let isActive = i === activeIndex
                     return (
@@ -168,7 +174,7 @@ const DotsContainer = styled.ul`
   margin: 0 auto;
   padding: 0;
   position: relative;
-  bottom: -20px;
+  bottom: calc(-20px + (${props=> props.offset}px));
 `
 const ButtonContainer = styled.div`
   width: 100%;
@@ -176,7 +182,7 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  top: calc(50% - 30px);
+  top: calc(50% - 30px + (${props=> props.offset}px));
 `
 const SlideContainer = styled.div`
   margin: 0 auto;

@@ -31,5 +31,6 @@ export default () => (
     buttonComponent={Carousel.Button}
     dotComponent={Carousel.Dot}
     slideRenderer={slideProps => <Slide {...slideProps} />}
+    buttonOffset={100}
   />
 )
