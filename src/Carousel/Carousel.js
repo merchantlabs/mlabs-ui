@@ -114,7 +114,7 @@ export default class Slider extends Component {
     return (
       <Media query="(max-width: 950px)">
         {matches => (
-          <CarouselContainer id="thisisthecontainer">
+          <CarouselContainer id="mlabs_carousel_root">
             <SlideContainer>
               <SwipeableView
                 onMouseEnter={this.onMouseEnter}

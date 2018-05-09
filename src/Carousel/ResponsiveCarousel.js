@@ -19,11 +19,16 @@ export default class ResponsiveCarousel extends Component {
     }
   }
 
+  componentDidMount() {
+    if(typeof window !== 'undefined') {
+      this.carouselRoot = document.getElementById('mlabs_carousel_root')
+      this.updateMatches()
+    }
+  }
+
   componentWillMount() {
     if (typeof window !== 'object') return
-
     window.addEventListener('resize', this.updateMatches)
-    this.updateMatches()
   }
 
   componentWillUnmount() {
@@ -41,9 +46,11 @@ export default class ResponsiveCarousel extends Component {
   updateMatches = () => {
     const { itemCount } = this.state
     const { breakpoints, slides } = this.props
+    
+    const carouselSize = this.carouselRoot.getBoundingClientRect().width
 
     const count = breakpoints.reduce((acc, item) => {
-      return window.innerWidth > item.width ? item.items : acc
+      return carouselSize > item.width ? item.items : acc
     }, 1)
 
     if (itemCount !== count) {
