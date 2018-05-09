@@ -46,8 +46,11 @@ export default class ResponsiveCarousel extends Component {
   updateMatches = () => {
     const { itemCount } = this.state
     const { breakpoints, slides } = this.props
-    
-    const carouselSize = this.carouselRoot.getBoundingClientRect().width
+
+    const carouselSize = this.carouselRoot ?
+      this.carouselRoot.getBoundingClientRect().width
+      :
+      0
 
     const count = breakpoints.reduce((acc, item) => {
       return carouselSize > item.width ? item.items : acc
