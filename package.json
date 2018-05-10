@@ -1,6 +1,6 @@
 {
   "name": "@merchantlabs/ui",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Merchant Labs React component library.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,6 +23,7 @@
     "react-swipeable-views": "^0.12.13",
     "react-swipeable-views-core": "^0.12.11",
     "react-swipeable-views-utils": "^0.12.13",
+    "resize-observer-polyfill": "^1.5.0",
     "styled-components": "^3.1.6"
   },
   "peerDependencies": {

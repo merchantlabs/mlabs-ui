@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Media from 'react-media'
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay, virtualize } from 'react-swipeable-views-utils'
 import { mod } from 'react-swipeable-views-core'
@@ -17,14 +16,10 @@ export default class Slider extends Component {
     interval: PropTypes.number,
     className: PropTypes.string,
     autoPlay: PropTypes.string,
-    dotOffset: PropTypes.number,
-    buttonOffset: PropTypes.number
   }
 
   static defaultProps = {
-    interval: 5000,
-    dotOffset: 0,
-    buttonOffset: 0
+    interval: 5000
   }
 
   state = {
@@ -32,12 +27,6 @@ export default class Slider extends Component {
     activeIndex: 0,
     infiniteIndex: 0,
     pageVisibility: 'visible'
-  }
-
-  _onPageVisibilityChange = () => {
-    this.setState({
-      pageVisibility: document.visibilityState
-    })
   }
 
   componentDidMount() {
@@ -61,7 +50,6 @@ export default class Slider extends Component {
   }
 
   onMouseEnter = () => this.setState({ auto: false })
-
   onMouseLeave = () => this.setState({ auto: true })
 
   _moveLeft = () => {
@@ -90,6 +78,12 @@ export default class Slider extends Component {
     })
   }
 
+  _onPageVisibilityChange = () => {
+    this.setState({
+      pageVisibility: document.visibilityState
+    })
+  }
+
   _renderSlides = ({ index, key }) => {
     const { slideRenderer, slides, className } = this.props
     const slideData = slides[mod(index, slides.length)]
@@ -107,56 +101,50 @@ export default class Slider extends Component {
       interval,
       dotComponent: Dot,
       buttonComponent: Button,
-      dotOffset,
-      buttonOffset
+      innerRef
     } = this.props
 
     return (
-      <Media query="(max-width: 950px)">
-        {matches => (
-          <CarouselContainer id="mlabs_carousel_root">
-            <SlideContainer>
-              <SwipeableView
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}
-                onChangeIndex={this.onChangeIndex}
-                index={infiniteIndex}
-                autoplay={auto && slides.length > 1 && pageVisibility === 'visible' }
-                interval={interval}
-                springConfig={{
-                  duration: `${matches ? 0.35 : 1.5}s`,
-                  easeFunction: 'cubic-bezier(0.15, 0.3, 0.25, 1)',
-                  delay: '0s'
-                }}
-                slideRenderer={this._renderSlides}
-              />
-            </SlideContainer>
-            {!matches &&
-              Button &&
-              slides.length !== 1 && (
-                <ButtonContainer offset={buttonOffset}>
-                  <Button onClick={this._moveLeft} left />
-                  <Button onClick={this._moveRight} right />
-                </ButtonContainer>
-              )}
-            {Dot &&
-              slides.length > 1 && (
-                <DotsContainer offset={dotOffset}>
-                  {slides.map((slide, i) => {
-                    let isActive = i === activeIndex
-                    return (
-                      <Dot
-                        key={i}
-                        isActive={isActive}
-                        onClick={() => this._slideToIndex(i)}
-                      />
-                    )
-                  })}
-                </DotsContainer>
-              )}
-          </CarouselContainer>
-        )}
-      </Media>
+      <CarouselContainer innerRef={innerRef}>
+        <SlideContainer>
+          <SwipeableView
+            onMouseEnter={this.onMouseEnter}
+            onMouseLeave={this.onMouseLeave}
+            onChangeIndex={this.onChangeIndex}
+            index={infiniteIndex}
+            autoplay={auto && slides.length > 1 && pageVisibility === 'visible' }
+            interval={interval}
+            springConfig={{
+              duration: '.8s',
+              easeFunction: 'cubic-bezier(0.15, 0.3, 0.25, 1)',
+              delay: '0s'
+            }}
+            slideRenderer={this._renderSlides}
+          />
+        </SlideContainer>
+        {Button &&
+          slides.length !== 1 && (
+            <ButtonContainer>
+              <Button onClick={this._moveLeft} left />
+              <Button onClick={this._moveRight} right />
+            </ButtonContainer>
+          )}
+        {Dot &&
+          slides.length > 1 && (
+            <DotsContainer>
+              {slides.map((slide, i) => {
+                let isActive = i === activeIndex
+                return (
+                  <Dot
+                    key={i}
+                    isActive={isActive}
+                    onClick={() => this._slideToIndex(i)}
+                  />
+                )
+              })}
+            </DotsContainer>
+          )}
+      </CarouselContainer>
     )
   }
 }
@@ -172,9 +160,8 @@ const CarouselContainer = styled.div`
 `
 const DotsContainer = styled.ul`
   margin: 0 auto;
-  padding: 0;
+  padding: 25px 0 0;
   position: relative;
-  bottom: calc(-20px + (${props=> props.offset}px));
 `
 const ButtonContainer = styled.div`
   width: 100%;
@@ -182,7 +169,7 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  top: calc(50% - 30px + (${props=> props.offset}px));
+  top: 40%;
 `
 const SlideContainer = styled.div`
   margin: 0 auto;
