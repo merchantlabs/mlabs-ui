@@ -15,7 +15,7 @@ export default class Slider extends Component {
     buttonComponent: PropTypes.func,
     interval: PropTypes.number,
     className: PropTypes.string,
-    autoPlay: PropTypes.string,
+    autoPlay: PropTypes.bool
   }
 
   static defaultProps = {

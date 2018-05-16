@@ -57,6 +57,22 @@ export const query = graphql`
   }
 `;
 ```
+## `gatsby-image-loader` props
+
+| Name                    | Type                | Description                                                                                                                 |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `resolutions`           | `object`            | Data returned from the `resolutions` query                                                                                  |
+| `sizes`                 | `object`            | Data returned from the `sizes` query                                                                                        |
+| `title`                 | `string`            | Passed to the underlying hidden `img` element                                                                                                 |
+| `alt`                   | `string`            | Passed to the underlying hidden `img` element                                                                                                 |
+| `onLoad`                | `func`              | A callback that is called when the full-size image has loaded.                                                              |
+| `children`                | `func`              | Function that receives `src` and `imgLoaded` as props and returns a React component                                                |
+----------------
+
+**Everything below here is copied directly from the [`gatsby-image` docs](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-image)  without modification.**
+
+----------------
+
 
 ## Two types of responsive images
 
@@ -79,6 +95,57 @@ In Gatsby's GraphQL implementation, you query for the first type by querying a
 child object of an image called `resolutions` — which you can see in the sample
 component above. For the second type, you do a similar query but for a child
 object called `sizes`.
+
+## "Resolutions" queries
+
+### Component
+
+Pass in the data returned from the `resolutions` object in your query via the
+`resolutions` prop. e.g. `<ImageLoader resolutions={resolutions}> {({ src }) => {...}} </ImageLoader>`
+
+### Query
+
+```graphql
+{
+  imageSharp {
+    # Other options include height (set both width and height to crop),
+    # grayscale, duotone, rotate, etc.
+    resolutions(width: 400) {
+      # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
+      ...GatsbyImageSharpResolutions
+    }
+  }
+}
+```
+
+## "Sizes" queries
+
+### Component
+
+Pass in the data returned from the `sizes` object in your query via the `sizes`
+prop. e.g. `<ImageLoader sizes={sizes}> {({ src }) => {...}} </ImageLoader>`
+
+### Query
+
+```graphql
+{
+  imageSharp {
+    # i.e. the max width of your container is 700 pixels.
+    #
+    # Other options include maxHeight (set both maxWidth and maxHeight to crop),
+    # grayscale, duotone, rotate, etc.
+    sizes(maxWidth: 700) {
+      # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
+      ...GatsbyImageSharpSizes_noBase64
+    }
+  }
+}
+```
+
+## Image processing arguments
+
+[gatsby-plugin-sharp](/packages/gatsby-plugin-sharp) supports many additional arguments for transforming your images like
+`quality`,`sizeByPixelDensity`,`pngCompressionLevel`,`cropFocus`,`greyscale` and many more. See its documentation for more.
 
 ## Fragments
 
@@ -142,65 +209,3 @@ _Please see the
 [gatsby-plugin-sharp](/packages/gatsby-plugin-sharp/#tracedsvg)
 documentation for more information on `tracedSVG` and its configuration
 options._
-
-## "Resolutions" queries
-
-### Component
-
-Pass in the data returned from the `resolutions` object in your query via the
-`resolutions` prop. e.g. `<ImageLoader resolutions={resolutions}> {({ src }) => {...}} </ImageLoader>`
-
-### Query
-
-```graphql
-{
-  imageSharp {
-    # Other options include height (set both width and height to crop),
-    # grayscale, duotone, rotate, etc.
-    resolutions(width: 400) {
-      # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
-      ...GatsbyImageSharpResolutions
-    }
-  }
-}
-```
-
-## "Sizes" queries
-
-### Component
-
-Pass in the data returned from the `sizes` object in your query via the `sizes`
-prop. e.g. `<ImageLoader sizes={sizes}> {({ src }) => {...}} </ImageLoader>`
-
-### Query
-
-```graphql
-{
-  imageSharp {
-    # i.e. the max width of your container is 700 pixels.
-    #
-    # Other options include maxHeight (set both maxWidth and maxHeight to crop),
-    # grayscale, duotone, rotate, etc.
-    sizes(maxWidth: 700) {
-      # Choose either the fragment including a small base64ed image, a traced placeholder SVG, or one without.
-      ...GatsbyImageSharpSizes_noBase64
-    }
-  }
-}
-```
-
-## `gatsby-image-loader` props
-
-| Name                    | Type                | Description                                                                                                                 |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `resolutions`           | `object`            | Data returned from the `resolutions` query                                                                                  |
-| `sizes`                 | `object`            | Data returned from the `sizes` query                                                                                        |
-| `title`                 | `string`            | Passed to the underlying hidden `img` element                                                                                                 |
-| `alt`                   | `string`            | Passed to the underlying hidden `img` element                                                                                                 |
-| `onLoad`                | `func`              | A callback that is called when the full-size image has loaded.                                                              |
-| `children`                | `func`              | Function that receives `src` and `imgLoaded` as props and returns a React component                                                |
-
-## Image processing arguments
-
-[gatsby-plugin-sharp](/packages/gatsby-plugin-sharp) supports many additional arguments for transforming your images like
-`quality`,`sizeByPixelDensity`,`pngCompressionLevel`,`cropFocus`,`greyscale` and many more. See its documentation for more.
