@@ -31,8 +31,8 @@
   "lint-staged": {
     "packages/**/*.{js,jsx,json,css}": [
       "prettier",
-      "stylelint 'src/**/*.js'",
-      "eslint --ext .js,.jsx 'src/**/*.js'",
+      "stylelint",
+      "eslint --ext .js,.jsx",
       "git add"
     ]
   }
