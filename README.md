@@ -1,16 +1,9 @@
-# mlabs-ui
+# MLABS React Component Library
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
+React component library of components we use at Merchant Labs.
 
-React component library of components we use a lot at Merchant Labs.
+Each component is in a separate package and they are published in separate npm packages. Some packages may export more than one component but they are always directly related to the same functionality.
 
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
-
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
-
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+## Packages
+  - `@merchantlabs/gatsby-image-loader`
+  - `@merchantlabs/react-carousel`
