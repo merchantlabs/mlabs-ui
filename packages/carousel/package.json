@@ -1,0 +1,47 @@
+{
+  "name": "@merchantlabs/carousel",
+  "version": "0.1.0",
+  "description": "Merchant Labs React component library.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "css",
+    "es",
+    "lib",
+    "umd"
+  ],
+  "scripts": {
+    "build": "nwb build-react-component",
+    "clean": "nwb clean-module && nwb clean-demo",
+    "start": "nwb serve-react-demo",
+    "test": "nwb test-react",
+    "test:coverage": "nwb test-react --coverage",
+    "test:watch": "nwb test-react --server"
+  },
+  "dependencies": {
+    "react-media": "^1.8.0",
+    "react-swipeable-views": "^0.12.13",
+    "react-swipeable-views-core": "^0.12.11",
+    "react-swipeable-views-utils": "^0.12.13",
+    "resize-observer-polyfill": "^1.5.0",
+    "styled-components": "^3.1.6"
+  },
+  "peerDependencies": {
+    "react": "16.x"
+  },
+  "devDependencies": {
+    "nwb": "0.21.x",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "author": "Joe Isabell",
+  "homepage": "",
+  "license": "MIT",
+  "repository": "",
+  "keywords": [
+    "react-component"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
