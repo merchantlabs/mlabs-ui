@@ -1,6 +1,6 @@
 {
-  "name": "@merchantlabs/carousel",
-  "version": "0.1.0",
+  "name": "@merchantlabs/react-carousel",
+  "version": "0.0.1",
   "description": "Merchant Labs React component library.",
   "main": "lib/index.js",
   "module": "es/index.js",
