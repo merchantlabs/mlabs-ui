@@ -1,6 +1,6 @@
 {
   "name": "@merchantlabs/react-carousel",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Merchant Labs React component library.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -19,15 +19,14 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "react-media": "^1.8.0",
     "react-swipeable-views": "^0.12.13",
     "react-swipeable-views-core": "^0.12.11",
     "react-swipeable-views-utils": "^0.12.13",
-    "resize-observer-polyfill": "^1.5.0",
-    "styled-components": "^3.1.6"
+    "resize-observer-polyfill": "^1.5.0"
   },
   "peerDependencies": {
-    "react": "16.x"
+    "react": "16.x",
+    "styled-components": "^3.3.3"
   },
   "devDependencies": {
     "nwb": "0.21.x",
