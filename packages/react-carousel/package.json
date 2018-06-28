@@ -1,6 +1,6 @@
 {
   "name": "@merchantlabs/react-carousel",
-  "version": "0.1.1",
+  "version": "1.0.0-0",
   "description": "Merchant Labs React component library.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -19,6 +19,7 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
+    "react-gateway": "^3.0.0",
     "react-swipeable-views": "^0.12.13",
     "react-swipeable-views-core": "^0.12.11",
     "react-swipeable-views-utils": "^0.12.13",
@@ -31,7 +32,8 @@
   "devDependencies": {
     "nwb": "0.21.x",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "styled-components": "^3.3.3"
   },
   "author": "Joe Isabell",
   "homepage": "",
