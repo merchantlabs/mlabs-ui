@@ -4,12 +4,14 @@ import {render} from 'react-dom'
 import theme from './theme'
 import Example from '../../src'
 import Carousel from './Carousel'
+import InfiniteCarousel from './InfiniteCarousel'
 import ResponsiveCarousel from './ResponsiveCarousel'
 
 class Demo extends Component {
   render() {
     return <div>
       <Carousel />
+      <InfiniteCarousel />
       <ResponsiveCarousel />
     </div>
   }

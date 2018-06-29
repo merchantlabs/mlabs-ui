@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ResizeObserver from 'resize-observer-polyfill'
-import Carousel from './Carousel'
+import InfiniteCarousel from './InfiniteCarousel'
 
 export default class ResponsiveCarousel extends Component {
   static propTypes = {
     slides: PropTypes.array.isRequired,
     breakpoints: PropTypes.array.isRequired,
-    ...Carousel.propTypes
+    ...InfiniteCarousel.propTypes
   }
 
   constructor(props) {
@@ -65,7 +65,7 @@ export default class ResponsiveCarousel extends Component {
     const chunkedSlides = this._chunkArray(slides, itemCount)
 
     return (
-      <Carousel
+      <InfiniteCarousel
         innerRef={x => this.carouselContainer = x}
         slides={chunkedSlides}
         {...restProps}

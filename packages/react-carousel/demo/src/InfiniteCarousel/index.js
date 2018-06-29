@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Carousel } from '../../../src'
+import { InfiniteCarousel } from '../../../src'
 import Slide from './Slide'
 
 const slides = [
@@ -25,10 +25,12 @@ const slides = [
 ]
 
 export default () => (
-  <Carousel
-    buttonComponent={Carousel.Button}
-    dotComponent={Carousel.Dot}
-  >
-    {slides.map((slide, i) => <Slide key={i} {...slide} />)}
-  </Carousel>
+  <InfiniteCarousel
+    slides={slides}
+    interval={8000}
+    buttonComponent={InfiniteCarousel.Button}
+    dotComponent={InfiniteCarousel.Dot}
+    slideRenderer={slideProps => <Slide {...slideProps} />}
+    buttonOffset={100}
+  />
 )
