@@ -19,10 +19,12 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
+    "react-resize-observer-hook": "^0.0.2",
     "react-swipeable-views": "^0.12.13",
     "react-swipeable-views-core": "^0.12.11",
     "react-swipeable-views-utils": "^0.12.13",
-    "resize-observer-polyfill": "^1.5.0"
+    "resize-observer-polyfill": "^1.5.0",
+    "styled-components": "^4.2.0"
   },
   "peerDependencies": {
     "react": "16.x",
@@ -30,8 +32,8 @@
   },
   "devDependencies": {
     "nwb": "0.21.x",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "author": "Joe Isabell",
   "homepage": "",

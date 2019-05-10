@@ -1,75 +1,40 @@
-import React, { Component } from 'react'
+import React, { useRef} from 'react'
 import PropTypes from 'prop-types'
-import ResizeObserver from 'resize-observer-polyfill'
+
 import Carousel from './Carousel'
+import useContentRect from './useContentRect'
 
-export default class ResponsiveCarousel extends Component {
-  static propTypes = {
-    slides: PropTypes.array.isRequired,
-    breakpoints: PropTypes.array.isRequired,
-    ...Carousel.propTypes
-  }
+const ResponsiveCarousel = ({ breakpoints, slides, ...restProps }) => {
+  const ref = useRef(null)
+  const { width } = useContentRect(ref)
 
-  constructor(props) {
-    super(props)
+  const count = breakpoints.reduce((acc, breakpoint) => {
+    return width > breakpoint.width ? breakpoint.items : acc
+  }, 1)
 
-    this.state = { itemCount: 1 }
-    this.carouselContainer = null
-  }
+  const chunkedSlides = slides.reduce((acc, slide, index, arr) => {
+    return index % count === 0
+      ? acc.concat([arr.slice(index, index + count)])
+      : acc
+  }, [])
 
-  componentDidMount() {
-    if(typeof window !== 'undefined') {
-      this.updateMatches()
-      this.observer = new ResizeObserver(() => this.updateMatches())
-      this.observer.observe(this.carouselContainer)
-      window.addEventListener('resize', this.updateMatches)
-    }
-  }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateMatches)
-    this.observer.disconnect()
-  }
-
-  _chunkArray(array, size) {
-    return array.reduce((acc, item, index, arr) => {
-      return index % size === 0
-        ? acc.concat([arr.slice(index, index + size)])
-        : acc
-    }, [])
-  }
-
-  updateMatches = () => {
-    const { itemCount } = this.state
-    const { breakpoints } = this.props
-
-    let carouselSize = 0
-
-    if(this.carouselContainer) {
-      carouselSize = this.carouselContainer.getBoundingClientRect().width
-    }
-
-    const count = breakpoints.reduce((acc, item) => {
-      return carouselSize > item.width ? item.items : acc
-    }, 1)
-
-    if (itemCount !== count) {
-      this.setState({ itemCount: count })
-    }
-  }
-
-  render() {
-    const { itemCount } = this.state
-    const { breakpoints, slides, ...restProps } = this.props
-
-    const chunkedSlides = this._chunkArray(slides, itemCount)
-
-    return (
-      <Carousel
-        innerRef={x => this.carouselContainer = x}
-        slides={chunkedSlides}
-        {...restProps}
-      />
-    )
-  }
+  return (
+    <Carousel
+      ref={ref}
+      slides={chunkedSlides}
+      {...restProps}
+    />
+  )
 }
+
+ResponsiveCarousel.propTypes = {
+  slides: PropTypes.array.isRequired,
+  breakpoints: PropTypes.arrayOf(PropTypes.shape({
+    width: PropTypes.number,
+    items: PropTypes.number
+  })).isRequired,
+  ...Carousel.propTypes
+}
+
+export default ResponsiveCarousel

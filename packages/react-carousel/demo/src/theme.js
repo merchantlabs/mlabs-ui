@@ -1,4 +1,4 @@
-import { injectGlobal } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
 export default {
   // colors
@@ -25,7 +25,7 @@ export default {
 }
 
 // Inject reset.css into main style sheet;
-export const inject = injectGlobal`
+export const GlobalStyle = createGlobalStyle`
 
   html, body, div, span, applet, object, iframe, h1, h2, h3,
   h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address,
