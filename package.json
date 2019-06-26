@@ -25,7 +25,7 @@
   "scripts": {
     "lerna": "lerna",
     "publish": "lerna publish",
-    "publish-canary": "lerna publish --canary --yes",
+    "publish-canary": "lerna publish from-package --canary",
     "publish-next": "lerna publish --npm-tag=next"
   },
   "lint-staged": {
